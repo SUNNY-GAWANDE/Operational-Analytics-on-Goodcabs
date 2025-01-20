@@ -66,6 +66,7 @@ Total trips for Goodcabs is 70000 in January and achieved its maximum trips in t
 In terms of citywise and monthly distribution, for Jaipur, January has 15000 trips and February is the peak month with 16000 trips. After that trips demand decreased drastically. These help to understand the dynamics of the demands especially for a city like Jaipur which is a tourist destination. A similar trend for another tourist friendly city is observed for Lucknow. An interesting trend was observed for cities in the northern region of India(Jaipur, Lucknow & Chandigarh) that peak demand month is February with the first quarter of month showing a good amount of demand. This may be due to the winter season with pleasant atmosphere and tourist friendly places in these parts. 
 For the rest of the cities which are in the southern and western part of India, the peak demand months are April and May as there are summer holidays. 
 ## Actual V/s Target View
+![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/295bcd4b727c81e96568753359bc5637f8765c4d/target_4.png)
 ### KPI Performance:
 With targeted trips of 429K over a course of six months, it has achieved 426K total trips and achieved 99% of the target. In terms of a new passenger target of 185K in a period of six months, 177K new passengers were acquired by Good Cabs and  achieved 96% of the new passenger target. 
 ### City wise Target Analysis:
