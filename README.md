@@ -57,6 +57,7 @@ Among cities, Jaipur outperformed all other cities in terms of  Repeat passenger
 RPR for the month of January is 19% which is lowest for the period of 6 months and then it increased marginally to 21% for February month. RPR increased gradually for the following month of March and April by 26% and 29% respectively. It has achieved the highest growth in the month of May to 33% and decreased by approximately 3% in the month of May. 
 In January revenue from repeating passengers was 7 Million and it increased to next two months with 8M and 9M for February and March respectively. Revenue was flat in April with 9M and it generated maximum revenue of 11M in May. Revenue decreased by 3M in the month of June.
 ## Trips View
+![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/6c7d841131f7cc2abd69e0b385c0b2089500db04/trips_3.png)
 ### Total Trips by Day Type:
 Total trips in terms of Weekday for January month started with 40,000 and it has marginally increased in the subsequent months of February, March and April. It peaked at 43000 in May. However, after that it decreased to lowest with 35000 in June.
 In January Total trips in terms of Weekend is around 31000 and it has achieved the highest trips in February with 35000 trips. After that it has observed a linearly decreasing trend and hit its lowest trips in June.
