@@ -36,6 +36,7 @@ Purpose: This table provides detailed information on each individual trip, inclu
 ### Targets database: 
 This database holds Goodcabs' monthly targets for each city, including goals for trip counts, new passenger acquisition, and average passenger ratings. It enables performance evaluations against key benchmarks set by the company.
 ## Overview
+![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/76e38990f4ece5a01ff51e13b50f82ef54894659/Overview_1.png)
 ### KPI Performance: 
 During the 6 month period Good Cabs has earned 108M revenue from 426K total trips by 238K passengers and average trip cost to 254. Fom 426K total passengers, 177K(42%)  were new passengers and 249K(58%) were repeat passengers. Repeat rates were higher compared to new passengers. 
 ### Revenue by City: 
