@@ -20,6 +20,7 @@ With targeted trips of 429K over a course of six months, it has achieved 426K to
 Top Performers: Mysore, Jaipur, and Kochi consistently demonstrated high passenger ratings.
 Underperformers: Cities like Surat, Lucknow, and Vadodara required improvement in this area with the lowest average passenger ratings.
 ## Data Model
+![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/main/datamodel.png?raw=true)
 ### Trips database:
 This database contains both detailed and aggregated data on trips, passenger types, and repeat trip behavior for Goodcabs' operations across tier-2 cities. It organizes trip data by city, month, and day type (weekday or weekend), enabling comprehensive analysis of travel patterns, passenger demographics, and repeat usage trends.
 ### 1. dim_city
