@@ -38,7 +38,7 @@ This database holds Goodcabs' monthly targets for each city, including goals for
 ## Overview
 ![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/76e38990f4ece5a01ff51e13b50f82ef54894659/Overview_1.png)
 ### KPI Performance: 
-During the 6 month period Good Cabs has earned 108M revenue from 426K total trips by 238K passengers and average trip cost to 254. Fom 426K total passengers, 177K(42%)  were new passengers and 249K(58%) were repeat passengers. Repeat rates were higher compared to new passengers. 
+During the 6 month period Good Cabs has earned 108M revenue from 426K total trips by 238K passengers and average trip cost to 254. From 426K total passengers, 177K(42%)  were new passengers and 249K(58%) were repeat passengers. Repeat rates were higher compared to new passengers. 
 ### Revenue by City: 
 Jaipur city generated the highest revenue with 37M, contributing to 34% overall. Second city in terms of revenue is Kochi, generating 17M and contributing 15.7%.
 Bottom 3 cities are Mysore, Vadodara & Coimbatore, generating 4M revenue which is flat across all three cities and contributing to only 3-3.5% in overall revenue. 
