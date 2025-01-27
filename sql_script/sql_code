@@ -1,0 +1,152 @@
+# Business Request 1: City-Level Fare and Trip Summary Report
+-- Generate a report that displays the total trips, average fare per km, average fare per trip,
+-- and the percentage contribution of each city's trips to the overall trips.
+
+select c.city_name, 
+count(trip_id) as total_trips,
+sum(fare_amount)/sum(distance_travelled_km) as avg_fare_per_km,
+sum(fare_amount)/count(trip_id) as avg_fare_per_trip,
+round ((count(trip_id)*100)/sum(count(trip_id)) over(),2) as trip_contribution_percentage
+from fact_trips as f 
+left join
+dim_city as c
+using(city_id)
+group by 1
+order by 2 desc;
+
+# Business Request 2: Monthly City-Level Trips Target Performance Report
+-- Generate a report that evaluates the target performance for trips at the monthly and city level.
+-- For each city and month, compare the actual total trips with the target trips and categorize the performance as follows:
+-- If actual trips are greater than target trips, mark it as "Above Target".
+-- If actual trips are less than or equal to target trips, mark it as "Below Target".
+
+with target_performance as (
+select
+c.city_name, 
+(m.month), 
+count(trip_id) as actual_trips,
+total_target_trips as target_trips
+from fact_trips as f 
+left join
+dim_city as c
+using(city_id)
+left join
+targets_db.monthly_target_trips as m
+on f.city_id = m.city_id and month(f.date) = month(m.month)
+group by 1,2,4)
+select *, 
+(case when actual_trips > target_trips then "Above Target" else "Below Target" end) as performance_status,
+round((actual_trips - target_trips)*100/ target_trips,2) as `%_differece`
+from target_performance;
+
+# Business Request - 3: City-Level Repeat Passenger Trip Frequency Report
+-- Generate a report that shows the percentage distribution of repeat passengers by the number of trips they have taken in each city.
+-- Calculate the percentage of repeat passengers who took 2 trips, 3 trips, and so on, up to 10 trips
+
+with cte as(
+select c.city_name, 
+r.trip_count, sum(r.repeat_passenger_count) as ttl_passenger
+from dim_repeat_trip_distribution as r 
+inner join 
+dim_city as c
+using(city_id)
+group by 1,2
+order by 1,2)
+SELECT
+    city_name,
+    max(case when trip_count = "2-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `2-Trips`,
+    max(case when trip_count = "3-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `3-Trips`,
+    max(case when trip_count = "4-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `4-Trips`,
+    max(case when trip_count = "5-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `5-Trips`,
+    max(case when trip_count = "6-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `6-Trips`,
+    max(case when trip_count = "7-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `7-Trips`,
+    max(case when trip_count = "8-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `8-Trips`,
+    max(case when trip_count = "9-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `9-Trips`,
+    max(case when trip_count = "10-Trips" then ROUND((ttl_passenger / total_city_passengers) * 100, 2) else 0 end) as `10-Trips`
+FROM (
+    SELECT
+        city_name,
+        trip_count,
+        ttl_passenger,
+        SUM(ttl_passenger) OVER (PARTITION BY city_name) AS total_city_passengers
+    FROM cte
+) AS sub_sum
+group by city_name;
+
+# Business Request 4: Identify Cities with Highest and Lowest Total New Passengers
+-- Generate a report that calculates the total new passengers for each city and ranks them based on this value.
+-- Identify the top 3 cities with the highest number of new passengers as well as the bottom 3 cities with the lowest number of new passengers,
+-- categorising them as "Top 3" or "Bottom 3" accordingly
+
+with rank_cities as
+(
+select c.city_name, count(*) as total_new_passengers
+from fact_trips as f 
+left join
+dim_city as c
+using(city_id)
+where passenger_type = "new"
+group by 1
+order by 2 desc
+)
+select *,
+case when city_rank <= 3 then "Top 3" 
+ when city_rank >7 then "Bottom 3"
+ end as "city_category"
+from (
+select * ,
+rank() over(order by total_new_passengers desc) as city_rank
+from rank_cities) as ranks;
+
+# Business Request 5: Identify Month with Highest Revenue for Each City
+-- Generate a report that identifies the month with the highest revenue for each city. 
+-- For each city, display the month name, the revenue amount for that month, and the percentage contribution of that month's revenue to the city's total revenue
+  
+with high_revenue_month_filter as
+(
+select c.city_name,
+month(d.date) as months, 
+sum(f.fare_amount) as revenue,
+rank() over(partition by city_name order by sum(f.fare_amount) desc) as month_rank
+from fact_trips as f 
+left join
+dim_city as c
+using(city_id)
+left join 
+dim_date as d
+on f.date = d.date
+group by 1,2
+)
+select city_name,
+months as highest_revenue_month,
+revenue, 
+(revenue * 100/ ttl_city_revenue) as pct_cont
+from(
+select city_name,
+months,
+revenue,
+month_rank,
+sum(revenue) over(partition by city_name) as ttl_city_revenue
+from
+high_revenue_month_filter) as rev_pct
+where month_rank =1;
+
+# Business Request 6: Repeat Passenger Rate Analysis
+-- Generate a report that calculates two metrics:
+-- (1)Monthly Repeat Passenger Rate: Calculate the repeat passenger rate for each city and month by comparing the number of repeat passengers to the total passengers.
+-- (2)City-wide Repeat Passenger Rate: Calculate the overall repeat passenger rate for each city, considering all passengers across months.
+
+with cte as(
+select city_name, `month`, 
+sum(total_passengers) as total_passengers,
+sum(repeat_passengers) as repeat_passengers,
+round(sum(repeat_passengers)*100/sum(total_passengers),2) as month_rpr_pct
+from fact_passenger_summary as ps
+left join 
+dim_city as c
+using(city_id)
+group by 1,2
+order by 1,2)
+select *,
+round(repeat_passengers*100/sum(total_passengers) over(partition by city_name),2) as city_rpr_pct
+from cte;
