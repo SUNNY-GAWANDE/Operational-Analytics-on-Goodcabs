@@ -20,21 +20,16 @@ With targeted trips of 429K over a course of six months, it has achieved 426K to
 Top Performers: Mysore, Jaipur, and Kochi consistently demonstrated high passenger ratings.
 Underperformers: Cities like Surat, Lucknow, and Vadodara required improvement in this area with the lowest average passenger ratings.
 ## Data Model
-![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/main/datamodel.png?raw=true)
+
 ### Trips database:
 This database contains both detailed and aggregated data on trips, passenger types, and repeat trip behavior for Goodcabs' operations across tier-2 cities. It organizes trip data by city, month, and day type (weekday or weekend), enabling comprehensive analysis of travel patterns, passenger demographics, and repeat usage trends.
-### 1. dim_city
-Purpose: This table provides city-specific details, enabling location-based analysis of trips and passenger behavior across Goodcabs’ operational areas.
-### 2. dim_date
-Purpose: This table provides date-specific details that enable time-based grouping and analysis, helping to identify patterns across days, months, and weekends versus weekdays.
-### 3. fact_passenger_summary (Aggregated Data)
-Purpose: This table provides an aggregated summary of passenger counts for each city by month. It includes data on total passengers, new passengers, and repeat passengers, giving a high-level overview of passenger distribution patterns across different locations and times.
-### 4. dim_repeat_trip_distribution (Aggregated Data)
-Purpose: This table provides a breakdown of repeat trip behavior, aggregated by month and city. It details how many times repeat passengers rode within the given month, categorized by trip frequency. To keep things simple and ensure uniformity across cities, we have included trip frequencies up to a maximum of 10 trips per month. This allows for an analysis of repeat trip patterns at a granular level.
-### 5. fact_trips
-Purpose: This table provides detailed information on each individual trip, including trip-specific metrics like distance, fare, and ratings, which can be used for granular trip-level analysis.
 ### Targets database: 
 This database holds Goodcabs' monthly targets for each city, including goals for trip counts, new passenger acquisition, and average passenger ratings. It enables performance evaluations against key benchmarks set by the company.
+
+The raw dataset consists of 426000 rows.
+
+![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/main/datamodel.png?raw=true)
+
 ## Overview
 ![image alt](https://github.com/SUNNY-GAWANDE/Operational-Analytics-on-Goodcabs/blob/76e38990f4ece5a01ff51e13b50f82ef54894659/Overview_1.png)
 ### KPI Performance: 
